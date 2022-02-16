@@ -58,7 +58,7 @@ public class ProductResourceTests {
 		productDTO = Factory.createProductDTO();
 		page = new PageImpl<>(List.of(productDTO));
 		
-		Mockito.when(service.insert(productDTO)).thenReturn(productDTO);
+		Mockito.when(service.insert(any())).thenReturn(productDTO);
 		
 		Mockito.doNothing().when(service).delete(existingId);
 		Mockito.doThrow(ResourceNotFoundException.class).when(service).delete(nonExistingId);

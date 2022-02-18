@@ -9,11 +9,13 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.fmrm.catalog.dto.RoleDTO;
 import com.fmrm.catalog.dto.UserDTO;
+import com.fmrm.catalog.dto.UserInsertDTO;
 import com.fmrm.catalog.entities.Role;
 import com.fmrm.catalog.entities.User;
 import com.fmrm.catalog.repositories.RoleRepository;
@@ -26,9 +28,12 @@ public class UserService {
 
 	@Autowired
 	private UserRepository repository;
-	
+
 	@Autowired
 	private RoleRepository roleRepository;
+	
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
 
 	@Transactional(readOnly = true)
 	public Page<UserDTO> findAllPaged(Pageable pageable) {
@@ -46,9 +51,10 @@ public class UserService {
 	}
 
 	@Transactional
-	public UserDTO insert(UserDTO dto) {
+	public UserDTO insert(UserInsertDTO dto) {
 		User entity = new User();
 		copyDtoToEntity(dto, entity);
+		entity.setPassword(passwordEncoder.encode(dto.getPassword()));
 		entity = repository.save(entity);
 
 		return new UserDTO(entity);
@@ -83,9 +89,9 @@ public class UserService {
 		entity.setFirstName(dto.getFirstName());
 		entity.setLastName(dto.getLastName());
 		entity.setEmail(dto.getEmail());
-		
+
 		entity.getRoles().clear();
-		for(RoleDTO roleDto : dto.getRoles()) {
+		for (RoleDTO roleDto : dto.getRoles()) {
 			Role role = roleRepository.getById(roleDto.getId());
 			entity.getRoles().add(role);
 		}

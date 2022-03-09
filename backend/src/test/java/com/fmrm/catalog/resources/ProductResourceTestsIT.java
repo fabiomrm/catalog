@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fmrm.catalog.dto.ProductDTO;
 import com.fmrm.catalog.tests.Factory;
+import com.fmrm.catalog.tests.TokenUtil;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -29,16 +30,25 @@ public class ProductResourceTestsIT {
 
 	@Autowired
 	private ObjectMapper objectMapper;
+	
+	@Autowired
+	private TokenUtil tokenUtil;
 
 	private Long existingId;
 	private Long nonExistingId;
 	private Long countTotalProducts;
+	
+	private String username;
+	private String password;
 
 	@BeforeEach
 	void setUp() throws Exception {
 		existingId = 1L;
 		nonExistingId = 1000L;
 		countTotalProducts = 25L;
+		
+		username = "maria@gmail.com";
+		password = "123456";
 	}
 
 	@Test
@@ -46,7 +56,11 @@ public class ProductResourceTestsIT {
 		ProductDTO dto = Factory.createProductDTO();
 		String jsonBody = objectMapper.writeValueAsString(dto);
 
-		ResultActions result = mockMvc.perform(put("/products/{id}", nonExistingId).content(jsonBody)
+		String accessToken = tokenUtil.obtainAccessToken(mockMvc, username, password);
+		
+		ResultActions result = mockMvc.perform(put("/products/{id}", nonExistingId)
+				.header("Authorization", "Bearer " + accessToken)
+				.content(jsonBody)
 				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON));
 
 		result.andExpect(status().isNotFound());
@@ -54,13 +68,18 @@ public class ProductResourceTestsIT {
 
 	@Test
 	public void updateShouldReturnProductDTOWhenIdExists() throws Exception {
+		
+		String accessToken = tokenUtil.obtainAccessToken(mockMvc, username, password);
+		
 		ProductDTO dto = Factory.createProductDTO();
 		String jsonBody = objectMapper.writeValueAsString(dto);
 
 		String expectedName = dto.getName();
 		String expectedDescription = dto.getDescription();
 
-		ResultActions result = mockMvc.perform(put("/products/{id}", existingId).content(jsonBody)
+		ResultActions result = mockMvc.perform(put("/products/{id}", existingId)
+				.header("Authorization", "Bearer " + accessToken)
+				.content(jsonBody)
 				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON));
 
 		result.andExpect(status().isOk());

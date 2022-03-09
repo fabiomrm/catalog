@@ -1,5 +1,7 @@
 package com.fmrm.catalog.services;
 
+import static org.mockito.ArgumentMatchers.any;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -49,14 +51,12 @@ public class ProductServiceTests {
 	private Product product;
 	private ProductDTO productDTO;
 	private Category category;
-	private Long categoryId;
 	
 	@BeforeEach
 	void setup() throws Exception {
 		existingId = 1L;
 		nonExistingId = 2L;
 		dependentId = 3L;
-		categoryId = 1L;
 		product = Factory.createProduct();
 		productDTO = Factory.createProductDTO(); 
 		category = Factory.createCategory();
@@ -74,6 +74,8 @@ public class ProductServiceTests {
 		
 		Mockito.when(repository.findById(existingId)).thenReturn(Optional.of(product));
 		Mockito.when(repository.findById(nonExistingId)).thenReturn(Optional.empty());
+		
+		Mockito.when(repository.find(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.any())).thenReturn(page);
 		
 		Mockito.doNothing().when(repository).deleteById(existingId);
 		Mockito.doThrow(EmptyResultDataAccessException.class).when(repository).deleteById(nonExistingId);
@@ -118,10 +120,9 @@ public class ProductServiceTests {
 	public void findAllPagedShouldReturnPage() {
 		Pageable pageable = PageRequest.of(0, 10);
 		
-		Page<ProductDTO> result = service.findAllPaged(categoryId, pageable);
+		Page<ProductDTO> result = service.findAllPaged(0L, "", pageable);
 		
 		Assertions.assertNotNull(result);
-		Mockito.verify(repository, Mockito.times(1)).findAll(pageable);
 	}
 	
 	

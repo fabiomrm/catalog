@@ -27,6 +27,7 @@ public class ProductServiceTestsIT {
 	private Long existingId;
 	private Long nonExistingId;
 	private Long countTotalProducts;
+	private Long categoryId;
 
 	@BeforeEach
 	void setUp() throws Exception {
@@ -54,8 +55,9 @@ public class ProductServiceTestsIT {
 	@Test
 	public void findAllPagedShouldReturnOrderedPageWhenSortByName() {
 		PageRequest pageRequest = PageRequest.of(0, 10, Sort.by("name"));
+		categoryId = 1L;
 		
-		Page<ProductDTO> result = service.findAllPaged(pageRequest);
+		Page<ProductDTO> result = service.findAllPaged(categoryId, pageRequest);
 		
 		Assertions.assertFalse(result.isEmpty());
 		Assertions.assertEquals("Macbook Pro", result.getContent().get(0).getName());
@@ -67,9 +69,10 @@ public class ProductServiceTestsIT {
 	public void findAllPagedShouldReturnEmptyPageWhenPageDoesNotExist() {
 		int size = 10;
 		long lastPage = countTotalProducts / size;
+		categoryId = 1L;
 		PageRequest pageRequest = PageRequest.of((int)lastPage + 1, size);
 		
-		Page<ProductDTO> result = service.findAllPaged(pageRequest);
+		Page<ProductDTO> result = service.findAllPaged(categoryId, pageRequest);
 		
 		Assertions.assertTrue(result.isEmpty());
 		
@@ -77,10 +80,10 @@ public class ProductServiceTestsIT {
 	
 	@Test
 	public void findAllPagedShouldReturnPageWhenPage0Size10() {
-		
 		PageRequest pageRequest = PageRequest.of(0, 10);
+		categoryId = 1L;
 		
-		Page<ProductDTO> result = service.findAllPaged(pageRequest);
+		Page<ProductDTO> result = service.findAllPaged(categoryId, pageRequest);
 		
 		Assertions.assertFalse(result.isEmpty());
 		Assertions.assertEquals(0, result.getNumber());

@@ -1,0 +1,23 @@
+.product-card {
+    margin-bottom: 1.875rem;
+}
+
+.card-top-container {
+    text-align: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid #E1E1E1;
+}
+
+.card-top-container img {
+    width: 9.5rem;
+    height: 9.5rem;
+}
+
+.card-bottom-container {
+    padding: 1rem 1.25rem 1.875rem 1.25rem;
+}
+
+.card-bottom-container h6 {
+    font-size: 1.125rem;
+    color: #263838;
+}

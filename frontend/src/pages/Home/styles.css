@@ -1,0 +1,43 @@
+.home-container {
+    padding: 0.625rem;
+    font-size: 1.25rem;
+    text-align: center;
+}
+
+.home-card {
+    display: flex;
+    flex-direction: column-reverse;
+    background: #FFF;
+    box-shadow: 0 0.25rem 1.25rem rgba(0, 0, 0, 0.25);
+    border-radius: 1.25rem;
+}
+
+.home-content-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    padding: 0.625rem 0.625rem 3.75rem 0.625rem;
+}
+
+.home-content-container h1 {
+    width: 16.25rem;
+    font-size: 1em;
+    margin-bottom: 1rem;
+}
+
+.home-content-container p {
+    width: 16.25rem;
+    font-size: 0.6em;
+    color: #9E9E9E;
+    margin-bottom: 2rem;
+}
+
+.home-image-container {
+    padding: 3rem 1rem;
+}
+
+.home-image-container svg {
+    width: 100%;
+    height: auto;
+}

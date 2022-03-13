@@ -1,0 +1,37 @@
+.btn-container {
+    display: flex;
+}
+
+.btn-container button {
+    
+    border-top-left-radius: 0.625rem;
+    border-bottom-left-radius: 0.625rem;
+}
+
+.btn-container button h6 {
+    color: #FFF;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+}
+
+.btn-icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 3.125rem;
+    height: 3.125rem;
+    background: #33569B;
+    border-top-right-radius: 0.625rem;
+    border-bottom-right-radius: 0.625rem;
+}
+
+@media (min-width: 576px) {
+    .btn-icon-container {
+        width: 4.375rem;
+        height: 4.375rem;
+    }
+
+    .btn h6 {
+        font-size: 1.125rem;
+    }
+}

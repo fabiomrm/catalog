@@ -14,7 +14,9 @@ export const Home = () => {
           </div>
           <div>
             <Link to="/products">
-              <ButtonIcon />
+              <ButtonIcon 
+                text="inicie agora a sua busca"
+              />
             </Link>
           </div>
         </div>

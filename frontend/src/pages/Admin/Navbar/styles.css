@@ -34,3 +34,32 @@ ul {
 .admin-nav-item p {
     margin: 0;
 }
+
+@media (min-width: 768px) {
+    .admin-nav-item {
+        min-width: 13.75rem;
+    }
+}
+
+@media (min-width: 1200px) {
+    ul {
+        justify-content: unset;
+        flex-direction: column;
+    }
+
+    .admin-nav-container {
+        padding:0;
+        width: 18.75rem;
+        height: calc(100vh - 4.375rem);
+    }
+
+    .admin-nav-item {
+        justify-content: flex-start;
+        padding:0 0 0 2.5rem;
+        height: 5rem;
+        background: #FFF;
+        border-radius: 0;
+        font-size: 1.2rem;
+        border-bottom: 1px solid #E1E1E1;    
+    }
+}

@@ -3,7 +3,7 @@
 }
 
 .btn-container button {
-    
+    width: calc(100% - 3.125rem);
     border-top-left-radius: 0.625rem;
     border-bottom-left-radius: 0.625rem;
 }
@@ -30,7 +30,10 @@
         width: 4.375rem;
         height: 4.375rem;
     }
-
+    
+    .btn-icon-container button {
+        width: calc(100% - 4.375rem);
+    }
     .btn h6 {
         font-size: 1.125rem;
     }

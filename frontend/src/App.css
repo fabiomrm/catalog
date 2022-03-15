@@ -1,21 +1,39 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Open+Sans:wght@400;700&family=Red+Hat+Display:ital,wght@0,400;0,900;1,700&display=swap');
 
 * {
-    font-family: 'Open Sans', sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
 
-h1, h2, h3, h4, h5, h6 {
-    font-weight: 700;
-    margin-bottom: 0;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 700;
+  margin-bottom: 0;
 }
 
-a, a:hover {
-    text-decoration: none;
-    color: unset;
+a,
+a:hover {
+  text-decoration: none;
+  color: unset;
 }
 
 .base-card {
-    background: #FFF;
-    box-shadow: 0 0.25rem 1.25rem rgba(0, 0, 0, 0.25);
-    border-radius: 1rem;
+  background: #fff;
+  box-shadow: 0 0.25rem 1.25rem rgba(0, 0, 0, 0.25);
+  border-radius: 1rem;
+}
+
+.base-input {
+  border-radius: 10px;
+  font-size: 1em;
+  letter-spacing: -0.015em;
+  color: #263238;
+  height: 50px;
+}
+
+.base-input::placeholder {
+  color: #9e9e9e;
 }

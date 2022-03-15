@@ -3,6 +3,7 @@ import { ButtonIcon } from 'components/ButtonIcon';
 import { useForm } from 'react-hook-form';
 
 import './styles.css';
+import { requestBackendLogin } from 'utils/requests';
 
 type FormData = {
   username: string;
@@ -13,7 +14,13 @@ export const Login = () => {
   const { register, handleSubmit } = useForm<FormData>();
 
   const onSubmit = (formData: FormData) => {
-    
+    requestBackendLogin(formData)
+    .then((res) => {
+      console.log("Sucesso", res)
+    })
+    .catch((err) => {
+      console.log("ERROR", err)
+    })
   };
 
   return (

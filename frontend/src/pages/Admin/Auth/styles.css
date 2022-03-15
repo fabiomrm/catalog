@@ -1,0 +1,70 @@
+.auth-container {
+  display: flex;
+  justify-content: space-around;
+  padding: 1.25rem;
+}
+
+.auth-banner-container {
+  display: none;
+}
+
+.auth-form-container {
+  width: 100%;
+}
+
+@media (min-width: 576px) {
+  .auth-form-container {
+    max-width: 30rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .auth-form-container {
+    max-width: 34.375rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .auth-container {
+    padding: 2.5rem;
+  }
+
+  .auth-banner-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 2.5rem;
+    width: 31.25rem;
+  }
+
+  .auth-banner-container h1 {
+      font-size: 2.5rem;
+      letter-spacing: -0.015em;
+      color: #263238;
+      margin-bottom: 1rem;
+  }
+
+  .auth-banner-container p {
+      font-size: 1rem;
+      letter-spacing: -0.015em;
+      color: #9E9E9E;
+  }
+
+  .auth-banner-container svg {
+      width: 100%;
+  }
+}   
+
+@media (min-width: 1400px) {
+    .auth-banner-container {
+        width: 40rem;
+    }
+
+    .auth-banner-container h1{
+        font-size: 3.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .auth-banner-container p {
+        font-size: 1.5rem;
+    }
+}

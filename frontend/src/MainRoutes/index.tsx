@@ -1,5 +1,6 @@
 import { Navbar } from 'components/Navbar';
 import { Admin } from 'pages/Admin';
+import { Auth } from 'pages/Admin/Auth';
 import { Catalog } from 'pages/Catalog';
 import { Home } from 'pages/Home';
 import { ProductDetails } from 'pages/ProductDetails';
@@ -14,6 +15,15 @@ export const MainRoutes = () => {
         <Route path="/" element={<Home />} />
         <Route path="/products" element={<Catalog />} />
         <Route path="/products/:productId" element={<ProductDetails />} />
+        <Route
+          path="/admin/auth"
+          element={<Navigate to="/admin/auth/login" />}
+        />
+        <Route path="/admin/auth" element={<Auth />}>
+          <Route path="login" element={<h1>Card de Login</h1>} />
+          <Route path="signup" element={<h1>Card de Signup</h1>} />
+          <Route path="recover" element={<h1>Card de Recover</h1>} />
+        </Route>
         <Route path="/admin" element={<Navigate to="/admin/products" />} />
         <Route path="/admin" element={<Admin />}>
           <Route path="products" element={<h1>PRODUCTS ADMIN</h1>} />

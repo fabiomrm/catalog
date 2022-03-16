@@ -2,6 +2,7 @@ import { ButtonIcon } from 'components/ButtonIcon';
 import { ReactComponent as MainImage } from 'assets/images/main-img.svg';
 import './styles.css';
 import { Link } from 'react-router-dom';
+import { getTokenData, isAuthenticated } from 'utils/requests';
 
 export const Home = () => {
   return (

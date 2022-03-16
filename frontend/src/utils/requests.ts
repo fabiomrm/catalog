@@ -1,5 +1,6 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import qs from 'qs';
+import jwtDecode from 'jwt-decode';
 
 export const BASE_URL = process.env.REACT_APP_BASE_URL ?? 'https://fmrm-catalog.herokuapp.com';
 
@@ -16,6 +17,24 @@ type LoginData = {
     username: string;
     password: string;
 }
+
+type LoginResponse = {
+    access_token: string;
+    token_type: string;
+    expires_in: number;
+    scope: string;
+    userFirstName: string;
+    userId: number;
+}
+
+type Role = 'ROLE_OPERATOR' | 'ROLE_ADMIN';
+
+type TokenData = {
+    exp: number;
+    user_name: string;
+    authorities: Role[];
+}
+
 
 
 export const requestBackendLogin = (loginData: LoginData) => {
@@ -46,14 +65,7 @@ export const requestBackend = (config: AxiosRequestConfig) => {
     return axios({ ...config, baseURL: BASE_URL, headers });
 }
 
-type LoginResponse = {
-    access_token: string;
-    token_type: string;
-    expires_in: number;
-    scope: string;
-    userFirstName: string;
-    userId: number;
-}
+
 
 export const saveAuthData = (obj: LoginResponse) => {
     localStorage.setItem(TOKEN_KEY, JSON.stringify(obj));
@@ -67,22 +79,36 @@ export const getAuthData = (): LoginResponse => {
 
 // Add a request interceptor
 axios.interceptors.request.use(function (config) {
-   console.log("interceptor antes da requisição")
+    console.log("interceptor antes da requisição")
     return config;
-  }, function (error) {
+}, function (error) {
     console.log("erro na requisição")
     return Promise.reject(error);
-  });
+});
 
 // Add a response interceptor
 axios.interceptors.response.use(function (response) {
     console.log("interceptor resposta com sucesso")
     return response;
-  }, function (error) {
+}, function (error) {
 
-    if(error.response.status === 401 || error.response.status === 403) {
+    if (error.response.status === 401 || error.response.status === 403) {
         window.location.href = "/admin/auth";
         console.log("resposta com erro")
     }
     return Promise.reject(error);
-  });
+});
+
+export const getTokenData = (): TokenData | undefined => {
+    try {
+        return jwtDecode(getAuthData().access_token) as TokenData;
+    } catch(e) {
+        return undefined;
+    }
+};
+
+export const isAuthenticated = () : boolean => {
+    const tokenData = getTokenData();
+
+    return (tokenData && tokenData.exp * 1000 > Date.now()) ? true : false;
+}

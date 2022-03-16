@@ -1,16 +1,22 @@
 import axios from 'axios';
 import qs from 'qs';
+
 export const BASE_URL = process.env.REACT_APP_BASE_URL ?? 'https://fmrm-catalog.herokuapp.com';
+
+const TOKEN_KEY = 'authData';
 
 export const CLIENT_ID = process.env.REACT_APP_CLIENT_ID ?? 'myclientid';
 export const CLIENT_SECRET = process.env.REACT_APP_CLIENT_SECRET ?? 'myclientsecret';
 
 const basicHeader = () => 'Basic ' + window.btoa(CLIENT_ID + ':' + CLIENT_SECRET);
 
+
+
 type LoginData = {
     username: string;
     password: string;
 }
+
 
 export const requestBackendLogin = (loginData: LoginData) => {
     const headers = {
@@ -29,4 +35,23 @@ export const requestBackendLogin = (loginData: LoginData) => {
         headers,
         data,
     });
+}
+
+type LoginResponse = {
+    access_token: string;
+    token_type: string;
+    expires_in: number;
+    scope: string;
+    userFirstName: string;
+    userId: number;
+}
+
+export const saveAuthData = (obj: LoginResponse) => {
+    localStorage.setItem(TOKEN_KEY, JSON.stringify(obj));
+}
+
+export const getAuthData = (): LoginResponse => {
+    const str = localStorage.getItem(TOKEN_KEY) ?? "{}";
+
+    return JSON.parse(str);
 }

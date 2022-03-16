@@ -3,7 +3,7 @@ import { ButtonIcon } from 'components/ButtonIcon';
 import { useForm } from 'react-hook-form';
 
 import './styles.css';
-import { requestBackendLogin } from 'utils/requests';
+import { getAuthData, requestBackendLogin, saveAuthData } from 'utils/requests';
 import { useState } from 'react';
 
 type FormData = {
@@ -12,14 +12,21 @@ type FormData = {
 };
 
 export const Login = () => {
-  const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormData>();
   const [hasError, setHasError] = useState(false);
 
   const onSubmit = (formData: FormData) => {
     requestBackendLogin(formData)
       .then((res) => {
+        saveAuthData(res.data);
+        const token = getAuthData().access_token;
         setHasError(false);
-        console.log('Sucesso', res);
+        console.log('Sucesso: ', res);
+        console.log('Token: ', token)
       })
       .catch((err) => {
         setHasError(true);
@@ -31,9 +38,7 @@ export const Login = () => {
     <div className="base-card login-card">
       <h1>LOGIN</h1>
       {hasError && (
-        <div className="alert alert-danger">
-          Erro ao tentar efetuar login
-        </div>
+        <div className="alert alert-danger">Erro ao tentar efetuar login</div>
       )}
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4">
@@ -41,29 +46,36 @@ export const Login = () => {
             {...register('username', {
               required: 'Campo obrigatório',
               pattern: {
-                value:/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
                 message: 'Email inválido',
-            },
+              },
             })}
             name="username"
             type="text"
-            className="form-control base-input"
+            className={`form-control base-input ${
+              errors.username ? 'is-invalid' : ''
+            }`}
             placeholder="Email"
           />
-           <div className="invalid-feedback d-block">{errors.username?.message}</div>
+          <div className="invalid-feedback d-block">
+            {errors.username?.message}
+          </div>
         </div>
         <div className="mb-2">
           <input
-            {...register('password',
-            {
-              required: "Campo obrigatório"
+            {...register('password', {
+              required: 'Campo obrigatório',
             })}
             type="password"
-            className="form-control base-input "
+            className={`form-control base-input  ${
+              errors.password ? 'is-invalid' : ''
+            }`}
             placeholder="Password"
             name="password"
           />
-          <div className="invalid-feedback d-block">{errors.password?.message}</div>
+          <div className="invalid-feedback d-block">
+            {errors.password?.message}
+          </div>
         </div>
         <Link to="/admin/auth/recover" className="login-link-recover">
           Esqueci a senha

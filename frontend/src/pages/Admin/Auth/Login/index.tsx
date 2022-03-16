@@ -4,28 +4,37 @@ import { useForm } from 'react-hook-form';
 
 import './styles.css';
 import { requestBackendLogin } from 'utils/requests';
+import { useState } from 'react';
 
 type FormData = {
   username: string;
   password: string;
-}
+};
 
 export const Login = () => {
   const { register, handleSubmit } = useForm<FormData>();
+  const [hasError, setHasError] = useState(false);
 
   const onSubmit = (formData: FormData) => {
     requestBackendLogin(formData)
-    .then((res) => {
-      console.log("Sucesso", res)
-    })
-    .catch((err) => {
-      console.log("ERROR", err)
-    })
+      .then((res) => {
+        setHasError(false);
+        console.log('Sucesso', res);
+      })
+      .catch((err) => {
+        setHasError(true);
+        console.log('ERROR', err);
+      });
   };
 
   return (
     <div className="base-card login-card">
       <h1>LOGIN</h1>
+      {hasError && (
+        <div className="alert alert-danger">
+          Erro ao tentar efetuar login
+        </div>
+      )}
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4">
           <input

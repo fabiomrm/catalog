@@ -2,6 +2,7 @@ import { Navbar } from 'components/Navbar';
 import { Admin } from 'pages/Admin';
 import { Auth } from 'pages/Admin/Auth';
 import { Login } from 'pages/Admin/Auth/Login';
+import { Users } from 'pages/Admin/Users';
 import { Catalog } from 'pages/Catalog';
 import { Home } from 'pages/Home';
 import { ProductDetails } from 'pages/ProductDetails';
@@ -29,7 +30,7 @@ export const MainRoutes = () => {
         <Route path="/admin" element={<Admin />}>
           <Route path="products" element={<h1>PRODUCTS ADMIN</h1>} />
           <Route path="categories" element={<h1>CATEGORIES ADMIN</h1>} />
-          <Route path="users" element={<h1>USERS ADMIN</h1>} />
+          <Route path="users" element={<Users />} />
         </Route>
       </Routes>
     </BrowserRouter>

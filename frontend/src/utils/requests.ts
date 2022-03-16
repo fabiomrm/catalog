@@ -1,5 +1,6 @@
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 import qs from 'qs';
+import { getConfigFileParsingDiagnostics } from 'typescript';
 
 export const BASE_URL = process.env.REACT_APP_BASE_URL ?? 'https://fmrm-catalog.herokuapp.com';
 
@@ -35,6 +36,15 @@ export const requestBackendLogin = (loginData: LoginData) => {
         headers,
         data,
     });
+}
+
+export const requestBackend = (config: AxiosRequestConfig) => {
+
+    const headers = config.withCredentials ? {
+        ...config.headers,
+        Authorization: "Bearer " + getAuthData().access_token
+    } : { ...config.headers };
+    return axios({ ...config, baseURL: BASE_URL, headers });
 }
 
 type LoginResponse = {

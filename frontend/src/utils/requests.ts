@@ -1,6 +1,5 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import qs from 'qs';
-import { getConfigFileParsingDiagnostics } from 'typescript';
 
 export const BASE_URL = process.env.REACT_APP_BASE_URL ?? 'https://fmrm-catalog.herokuapp.com';
 
@@ -65,3 +64,25 @@ export const getAuthData = (): LoginResponse => {
 
     return JSON.parse(str);
 }
+
+// Add a request interceptor
+axios.interceptors.request.use(function (config) {
+   console.log("interceptor antes da requisição")
+    return config;
+  }, function (error) {
+    console.log("erro na requisição")
+    return Promise.reject(error);
+  });
+
+// Add a response interceptor
+axios.interceptors.response.use(function (response) {
+    console.log("interceptor resposta com sucesso")
+    return response;
+  }, function (error) {
+
+    if(error.response.status === 401 || error.response.status === 403) {
+        window.location.href = "/admin/auth";
+        console.log("resposta com erro")
+    }
+    return Promise.reject(error);
+  });

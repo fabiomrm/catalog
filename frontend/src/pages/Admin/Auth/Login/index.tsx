@@ -33,8 +33,8 @@ export const Login = () => {
 
   const navigate = useNavigate();
   const location = useLocation();
-  console.log()
-  const { from } = location.state as any;
+
+  const { from } = location.state ? location.state as any : '/admin';
 
   const onSubmit = (formData: FormData) => {
     requestBackendLogin(formData)
@@ -47,7 +47,7 @@ export const Login = () => {
           tokenData: getTokenData(),
         });
         
-          navigate(from ? from : '/admin', {replace: true});
+          navigate(from, {replace: true});
       })
       .catch((err) => {
         setHasError(true);

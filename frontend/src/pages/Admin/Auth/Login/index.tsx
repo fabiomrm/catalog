@@ -3,8 +3,13 @@ import { ButtonIcon } from 'components/ButtonIcon';
 import { useForm } from 'react-hook-form';
 
 import './styles.css';
-import { getAuthData, requestBackendLogin, saveAuthData } from 'utils/requests';
-import { useState } from 'react';
+import {
+  getTokenData,
+  requestBackendLogin,
+  saveAuthData,
+} from 'utils/requests';
+import { useContext, useState } from 'react';
+import { AuthContext } from 'contexts/AuthContext';
 
 type FormData = {
   username: string;
@@ -12,6 +17,8 @@ type FormData = {
 };
 
 export const Login = () => {
+  const {  setAuthContextData } = useContext(AuthContext);
+
   const {
     register,
     handleSubmit,
@@ -26,15 +33,16 @@ export const Login = () => {
     requestBackendLogin(formData)
       .then((res) => {
         saveAuthData(res.data);
-        const token = getAuthData().access_token;
+
         setHasError(false);
-        console.log('Sucesso: ', res);
-        console.log('Token: ', token);
-        navigate("/admin");
+        setAuthContextData({
+          authenticated: true,
+          tokenData: getTokenData(),
+        });
+        navigate('/admin');
       })
       .catch((err) => {
         setHasError(true);
-        console.log('ERROR', err);
       });
   };
 

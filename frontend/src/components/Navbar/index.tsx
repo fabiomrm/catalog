@@ -1,8 +1,47 @@
 import './styles.css';
 import 'bootstrap/js/src/collapse.js';
-import { Link, NavLink} from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
+import {
+  getTokenData,
+  isAuthenticated,
+  removeAuthData,
+  TokenData,
+} from 'utils/requests';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+type AuthData = {
+  authenticated: boolean;
+  tokenData?: TokenData;
+};
 
 export const Navbar = () => {
+  const navigate = useNavigate();
+  const [authData, setAuthData] = useState<AuthData>({ authenticated: false });
+
+  useEffect(() => {
+    if (isAuthenticated()) {
+      setAuthData({
+        authenticated: true,
+        tokenData: getTokenData(),
+      });
+    } else {
+      setAuthData({
+        authenticated: false,
+      });
+    }
+  }, []);
+
+  const handleLogoutClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    removeAuthData();
+    setAuthData({
+      authenticated: false,
+    });
+
+    navigate('/');
+  };
+
   return (
     <nav className="navbar navbar-expand-md navbar-dark bg-primary main-nav">
       <div className="container-fluid">
@@ -24,9 +63,7 @@ export const Navbar = () => {
         <div className="collapse navbar-collapse" id="catalog-navbar">
           <ul className="navbar-nav offset-md-2 main-menu">
             <li>
-              <NavLink to="/">
-                HOME
-              </NavLink>
+              <NavLink to="/">HOME</NavLink>
             </li>
             <li>
               <NavLink to="/products">CATÁLOGO</NavLink>
@@ -35,6 +72,18 @@ export const Navbar = () => {
               <NavLink to="/admin">ADMIN</NavLink>
             </li>
           </ul>
+        </div>
+        <div>
+          {authData.authenticated ? (
+            <>
+              <span>{authData.tokenData?.user_name}</span>
+              <Link to="/admin/auth" onClick={handleLogoutClick}>
+                LOGOUT
+              </Link>
+            </>
+          ) : (
+            <Link to="/admin/auth">LOGIN</Link>
+          )}
         </div>
       </div>
     </nav>

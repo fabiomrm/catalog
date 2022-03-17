@@ -29,7 +29,7 @@ type LoginResponse = {
 
 type Role = 'ROLE_OPERATOR' | 'ROLE_ADMIN';
 
-type TokenData = {
+export type TokenData = {
     exp: number;
     user_name: string;
     authorities: Role[];
@@ -102,12 +102,16 @@ axios.interceptors.response.use(function (response) {
 export const getTokenData = (): TokenData | undefined => {
     try {
         return jwtDecode(getAuthData().access_token) as TokenData;
-    } catch(e) {
+    } catch (e) {
         return undefined;
     }
 };
 
-export const isAuthenticated = () : boolean => {
+export const removeAuthData = () => {
+    localStorage.removeItem(TOKEN_KEY);
+}
+
+export const isAuthenticated = (): boolean => {
     const tokenData = getTokenData();
 
     return (tokenData && tokenData.exp * 1000 > Date.now()) ? true : false;

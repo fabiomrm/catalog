@@ -1,4 +1,5 @@
 import { Navbar } from 'components/Navbar';
+import { PrivateRoute } from 'components/PrivateRoutes';
 import { Admin } from 'pages/Admin';
 import { Auth } from 'pages/Admin/Auth';
 import { Login } from 'pages/Admin/Auth/Login';
@@ -26,11 +27,12 @@ export const MainRoutes = () => {
           <Route path="signup" element={<h1>Card de Signup</h1>} />
           <Route path="recover" element={<h1>Card de Recover</h1>} />
         </Route>
+
         <Route path="/admin" element={<Navigate to="/admin/products" />} />
         <Route path="/admin" element={<Admin />}>
-          <Route path="products" element={<h1>PRODUCTS ADMIN</h1>} />
-          <Route path="categories" element={<h1>CATEGORIES ADMIN</h1>} />
-          <Route path="users" element={<Users />} />
+          <Route path="products" element={<PrivateRoute><h1>PRODUCTS ADMIN</h1></PrivateRoute>} />
+          <Route path="categories" element={<PrivateRoute><h1>CATEGORIES ADMIN</h1></PrivateRoute>} />
+          <Route path="users" element={<PrivateRoute><Users /></PrivateRoute>} />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { ButtonIcon } from 'components/ButtonIcon';
 import { useForm } from 'react-hook-form';
 
@@ -16,6 +16,10 @@ type FormData = {
   password: string;
 };
 
+type LocationState = {
+  from: Location;
+}
+
 export const Login = () => {
   const {  setAuthContextData } = useContext(AuthContext);
 
@@ -28,6 +32,9 @@ export const Login = () => {
   const [hasError, setHasError] = useState(false);
 
   const navigate = useNavigate();
+  const location = useLocation();
+  console.log()
+  const { from } = location.state as any;
 
   const onSubmit = (formData: FormData) => {
     requestBackendLogin(formData)
@@ -39,7 +46,8 @@ export const Login = () => {
           authenticated: true,
           tokenData: getTokenData(),
         });
-        navigate('/admin');
+        
+          navigate(from ? from : '/admin', {replace: true});
       })
       .catch((err) => {
         setHasError(true);

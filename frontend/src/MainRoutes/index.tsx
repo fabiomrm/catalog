@@ -32,7 +32,7 @@ export const MainRoutes = () => {
         <Route path="/admin" element={<Admin />}>
           <Route path="products" element={<PrivateRoute><h1>PRODUCTS ADMIN</h1></PrivateRoute>} />
           <Route path="categories" element={<PrivateRoute><h1>CATEGORIES ADMIN</h1></PrivateRoute>} />
-          <Route path="users" element={<PrivateRoute><Users /></PrivateRoute>} />
+          <Route path="users" element={<PrivateRoute roles={["ROLE_ADMIN"]}><Users /></PrivateRoute>} />
         </Route>
       </Routes>
     </BrowserRouter>

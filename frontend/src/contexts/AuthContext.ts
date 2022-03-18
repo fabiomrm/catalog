@@ -1,9 +1,10 @@
 import { createContext } from 'react';
-import { TokenData } from 'utils/auth';
+import { Role, TokenData } from 'utils/auth';
 
 export type AuthContextData = {
     authenticated: boolean;
     tokenData?: TokenData;
+    roles?: Role[];
 };
 
 export type AuthContextType = {
@@ -13,7 +14,7 @@ export type AuthContextType = {
 
 export const AuthContext = createContext<AuthContextType>({
     authContextData: {
-        authenticated: false
+        authenticated: false,
     },
     setAuthContextData: () => null,
 });

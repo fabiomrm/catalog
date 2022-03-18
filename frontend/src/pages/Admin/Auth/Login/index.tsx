@@ -3,9 +3,7 @@ import { ButtonIcon } from 'components/ButtonIcon';
 import { useForm } from 'react-hook-form';
 
 import './styles.css';
-import {
-  requestBackendLogin,
-} from 'utils/requests';
+import { requestBackendLogin } from 'utils/requests';
 import { useContext, useState } from 'react';
 import { AuthContext } from 'contexts/AuthContext';
 import { saveAuthData } from 'utils/storage';
@@ -16,12 +14,9 @@ type FormData = {
   password: string;
 };
 
-type LocationState = {
-  from: Location;
-}
 
 export const Login = () => {
-  const {  authContextData, setAuthContextData } = useContext(AuthContext);
+  const { authContextData, setAuthContextData } = useContext(AuthContext);
 
   const {
     register,
@@ -34,23 +29,23 @@ export const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { from } = location.state ? location.state as any : '/admin';
+  const { from } = location.state ? (location.state as any) : '/admin';
 
   const onSubmit = (formData: FormData) => {
     requestBackendLogin(formData)
       .then((res) => {
         saveAuthData(res.data);
-        console.log(res.data)
         setHasError(false);
+
         setAuthContextData({
           authenticated: true,
           tokenData: getTokenData(),
+          roles: getTokenData()?.authorities,
         });
-       
-          navigate(from ? from : '/admin', {replace: true});
+        console.log(from, 'FROM')
+        navigate(from ? from : '/admin', { replace: true });
       })
       .catch((err) => {
-        console.log('aqui')
         setHasError(true);
       });
   };

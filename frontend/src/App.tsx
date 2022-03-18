@@ -8,6 +8,7 @@ function App() {
   const [authContextData, setAuthContextData] = useState<AuthContextData>({
     authenticated: false,
   });
+  
 
   return (
     <AuthContext.Provider value={{authContextData, setAuthContextData}}>

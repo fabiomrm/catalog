@@ -1,10 +1,16 @@
+import { AuthContext } from 'contexts/AuthContext';
+import { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import { hasAnyRoles } from 'utils/auth';
 import './styles.css';
 
 export const Navbar = () => {
+
+  const { authContextData } = useContext(AuthContext);
+
   return (
     <nav className="admin-nav-container">
+      <p>{authContextData.roles}</p>
       <ul>
         <li>
           <NavLink to="/admin/products" className="admin-nav-item">

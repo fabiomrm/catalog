@@ -4,12 +4,12 @@ import { useForm } from 'react-hook-form';
 
 import './styles.css';
 import {
-  getTokenData,
   requestBackendLogin,
-  saveAuthData,
 } from 'utils/requests';
 import { useContext, useState } from 'react';
 import { AuthContext } from 'contexts/AuthContext';
+import { saveAuthData } from 'utils/storage';
+import { getTokenData } from 'utils/auth';
 
 type FormData = {
   username: string;
@@ -21,7 +21,7 @@ type LocationState = {
 }
 
 export const Login = () => {
-  const {  setAuthContextData } = useContext(AuthContext);
+  const {  authContextData, setAuthContextData } = useContext(AuthContext);
 
   const {
     register,
@@ -40,16 +40,17 @@ export const Login = () => {
     requestBackendLogin(formData)
       .then((res) => {
         saveAuthData(res.data);
-
+        console.log(res.data)
         setHasError(false);
         setAuthContextData({
           authenticated: true,
           tokenData: getTokenData(),
         });
-        
-          navigate(from, {replace: true});
+       
+          navigate(from ? from : '/admin', {replace: true});
       })
       .catch((err) => {
+        console.log('aqui')
         setHasError(true);
       });
   };

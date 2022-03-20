@@ -22,6 +22,10 @@ export const List = () => {
         id: 2,
         name: 'Eletrônicos',
       },
+      {
+        id: 3,
+        name: 'Celulares',
+      },
     ],
   };
 

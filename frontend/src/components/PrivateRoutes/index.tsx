@@ -23,7 +23,7 @@ export const PrivateRoute = ({ roles, children }: Props) => {
     } else if (isAuth && (roles && !hasAnyRoles(roles))) {
       navigate("/admin/products",{replace: true, state: {from: location}})
     }
-  }, [])
+  }, [authContextData])
 
 
   return <>{children}</>;

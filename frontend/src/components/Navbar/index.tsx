@@ -66,6 +66,7 @@ export const Navbar = () => {
             </li>
           </ul>
         </div>
+
         <div className="nav-login-logout">
           {authContextData.authenticated ? (
             <>

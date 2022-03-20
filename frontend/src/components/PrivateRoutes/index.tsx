@@ -1,6 +1,6 @@
 import { AuthContext } from 'contexts/AuthContext';
 import { useContext, useEffect } from 'react';
-import { Navigate, Routes, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { hasAnyRoles, isAuthenticated, Role } from 'utils/auth';
 
 
@@ -9,7 +9,7 @@ type Props = {
   roles?: Role[];
 };
 
-export const PrivateRoute = ({ roles }: Props) => {
+export const PrivateRoute = ({ roles, children }: Props) => {
   const isAuth = isAuthenticated();
   const location = useLocation();
   const navigate = useNavigate();
@@ -17,17 +17,14 @@ export const PrivateRoute = ({ roles }: Props) => {
   const { authContextData } = useContext(AuthContext);
 
   useEffect(() => {
-    console.log(isAuth)
-    console.log(authContextData.roles)
+  
     if(!isAuth) {
       navigate("/", {state: {from: location}});
-      console.log('aqui')
     } else if (isAuth && (roles && !hasAnyRoles(roles))) {
-      console.log('aqui 2')
       navigate("/admin/products",{replace: true, state: {from: location}})
     }
-  }, [authContextData])
+  }, [])
 
 
-  return <></>;
+  return <>{children}</>;
 };

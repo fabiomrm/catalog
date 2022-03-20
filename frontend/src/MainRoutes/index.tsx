@@ -3,6 +3,7 @@ import { PrivateRoute } from 'components/PrivateRoutes';
 import { Admin } from 'pages/Admin';
 import { Auth } from 'pages/Admin/Auth';
 import { Login } from 'pages/Admin/Auth/Login';
+import { Products } from 'pages/Admin/Products';
 import { Users } from 'pages/Admin/Users';
 import { Catalog } from 'pages/Catalog';
 import { Home } from 'pages/Home';
@@ -30,7 +31,7 @@ export const MainRoutes = () => {
 
         <Route path="/admin" element={<Navigate to="/admin/products" />} />
         <Route path="/admin" element={<Admin />}>
-          <Route path="products" element={<PrivateRoute><h1>PRODUCTS ADMIN</h1></PrivateRoute>} />
+          <Route path="products/*" element={<PrivateRoute><Products /></PrivateRoute>} />
           <Route path="categories" element={<PrivateRoute><h1>CATEGORIES ADMIN</h1></PrivateRoute>} />
           <Route path="users" element={<PrivateRoute roles={["ROLE_ADMIN"]}><Users /></PrivateRoute>} />
         </Route>

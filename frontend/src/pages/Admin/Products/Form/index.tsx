@@ -1,6 +1,6 @@
 import { AxiosRequestConfig } from 'axios';
 import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Product } from 'types/Product';
 import { requestBackend } from 'utils/requests';
@@ -26,6 +26,7 @@ export const Form = () => {
     handleSubmit,
     formState: { errors },
     setValue,
+    control,
   } = useForm<Product>();
 
   useEffect(() => {
@@ -42,8 +43,8 @@ export const Form = () => {
   }, [isEditing, productId, setValue]);
 
   useEffect(() => {
-    requestBackend({ baseURL: '/categories', withCredentials: true}).then((res) =>
-      setSelectCategories(res.data.content)
+    requestBackend({ url: '/categories' }).then(
+      (res) => setSelectCategories(res.data.content)
     );
   }, []);
 
@@ -94,13 +95,28 @@ export const Form = () => {
                 </div>
               </div>
               <div className="product-crud-input margin-bottom-30">
-                <Select
-                  options={selectCategories}
-                  isMulti
-                  classNamePrefix="product-crud-select"
-                  getOptionLabel={(category: Category) => category.name}
-                  getOptionValue={(category: Category) => String(category.id)}
+                <Controller
+                  name="categories"
+                  rules={{ required: true }}
+                  control={control}
+                  render={({ field }) => (
+                    <Select
+                      {...field}
+                      options={selectCategories}
+                      isMulti
+                      classNamePrefix="product-crud-select"
+                      getOptionLabel={(category: Category) => category.name}
+                      getOptionValue={(category: Category) =>
+                        String(category.id)
+                      }
+                    />
+                  )}
                 />
+                {errors.categories && (
+                  <div className="invalid-feedback d-block">
+                    Campo obrigatório
+                  </div>
+                )}
               </div>
               <div className="product-crud-input margin-bottom-30">
                 <input
@@ -121,7 +137,6 @@ export const Form = () => {
             </div>
             <div className="col-lg-6">
               <textarea
-                rows={10}
                 {...register('description', {
                   required: 'Campo obrigatório',
                 })}

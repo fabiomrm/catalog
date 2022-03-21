@@ -1,11 +1,14 @@
 import { AxiosRequestConfig } from 'axios';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Product } from 'types/Product';
 import { requestBackend } from 'utils/requests';
+import Select from 'react-select';
 
 import './styles.css';
+import { SelectContainer } from 'react-select/dist/declarations/src/components/containers';
+import { Category } from 'types/Category';
 
 type UrlParams = {
   productId: string;
@@ -14,6 +17,7 @@ type UrlParams = {
 export const Form = () => {
   const navigate = useNavigate();
   const { productId } = useParams<UrlParams>();
+  const [selectCategories, setSelectCategories] = useState<Category[]>([]);
 
   const isEditing = productId !== 'create';
 
@@ -36,6 +40,12 @@ export const Form = () => {
       });
     }
   }, [isEditing, productId, setValue]);
+
+  useEffect(() => {
+    requestBackend({ baseURL: '/categories', withCredentials: true}).then((res) =>
+      setSelectCategories(res.data.content)
+    );
+  }, []);
 
   const onSubmit = (formData: Product) => {
     const data = {
@@ -82,6 +92,15 @@ export const Form = () => {
                 <div className="invalid-feedback d-block">
                   {errors.name?.message}
                 </div>
+              </div>
+              <div className="product-crud-input margin-bottom-30">
+                <Select
+                  options={selectCategories}
+                  isMulti
+                  classNamePrefix="product-crud-select"
+                  getOptionLabel={(category: Category) => category.name}
+                  getOptionValue={(category: Category) => String(category.id)}
+                />
               </div>
               <div className="product-crud-input margin-bottom-30">
                 <input

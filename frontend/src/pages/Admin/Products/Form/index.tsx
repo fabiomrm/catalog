@@ -25,8 +25,8 @@ export const Form = () => {
       withCredentials: true,
     };
 
-    requestBackend(config).then((res) => {
-      console.log(res.data);
+    requestBackend(config).then(() => {
+      navigate('/admin/products');
     });
   };
 

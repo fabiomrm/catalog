@@ -9,7 +9,7 @@ import { AuthContext } from 'contexts/AuthContext';
 import { saveAuthData } from 'utils/storage';
 import { getTokenData } from 'utils/auth';
 
-type FormData = {
+type CredentialsDTO = {
   username: string;
   password: string;
 };
@@ -22,7 +22,7 @@ export const Login = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>();
+  } = useForm<CredentialsDTO>();
 
   const [hasError, setHasError] = useState(false);
 
@@ -31,7 +31,7 @@ export const Login = () => {
 
   const { from } = location.state ? (location.state as any) : '/admin';
 
-  const onSubmit = (formData: FormData) => {
+  const onSubmit = (formData: CredentialsDTO) => {
     requestBackendLogin(formData)
       .then((res) => {
         saveAuthData(res.data);

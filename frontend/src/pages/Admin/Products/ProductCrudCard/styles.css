@@ -64,6 +64,7 @@
 
   .product-crud-card-top-container {
     border:0;
+    width: 12.5rem;
     border-right: 1px solid #e1e1e1;
   }
 

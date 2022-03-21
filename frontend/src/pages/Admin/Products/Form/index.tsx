@@ -1,26 +1,52 @@
 import { AxiosRequestConfig } from 'axios';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Product } from 'types/Product';
 import { requestBackend } from 'utils/requests';
 
 import './styles.css';
 
+type UrlParams = {
+  productId: string;
+};
+
 export const Form = () => {
   const navigate = useNavigate();
+  const { productId } = useParams<UrlParams>();
+
+  const isEditing = productId !== 'create';
 
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm<Product>();
 
+  useEffect(() => {
+    if (isEditing) {
+      requestBackend({ url: `/products/${productId}` }).then((res) => {
+        const product = res.data as Product;
+        setValue('name', product.name);
+        setValue('price', product.price);
+        setValue('description', product.description);
+        setValue('imgUrl', product.imgUrl);
+        setValue('categories', product.categories);
+      });
+    }
+  }, [isEditing, productId, setValue]);
+
   const onSubmit = (formData: Product) => {
-    const data = { ...formData, imgUrl: '', categories: [{ id: 1, name: '' }] };
+    const data = {
+      ...formData,
+      imgUrl: isEditing ? formData.imgUrl : '',
+      categories: isEditing ? formData.categories : [{ id: 1, name: '' }],
+    };
 
     const config: AxiosRequestConfig = {
-      method: 'POST',
-      url: '/products',
+      method: isEditing ? 'PUT' : 'POST',
+      url: isEditing ? `/products/${productId}` : '/products',
       data,
       withCredentials: true,
     };

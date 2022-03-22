@@ -49,7 +49,10 @@ export const Form = () => {
   }, []);
 
   const onSubmit = (formData: Product) => {
-    const data = { ...formData, price: String(formData.price).replace(',', '.')};
+    const data = {
+      ...formData,
+      price: String(formData.price).replace(',', '.'),
+    };
 
     const config: AxiosRequestConfig = {
       method: isEditing ? 'PUT' : 'POST',

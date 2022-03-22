@@ -19,13 +19,14 @@
   margin-left: 0.625rem;
 }
 
-.pagination-item.active {
+.pagination-link-active {
   background: #407bff;
 }
 
 .arrow-next {
     transform: rotate(180deg);
     margin-left: 0.625rem;
+    color: #407bff;
 }
 .arrow-inactive {
   color: #e1e1e1;

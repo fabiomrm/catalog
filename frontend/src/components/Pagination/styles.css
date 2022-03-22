@@ -23,6 +23,11 @@
   background: #407bff;
 }
 
+.pagination-arrow-container {
+  display: flex;
+  align-items: center;
+}
+
 .arrow-next {
     transform: rotate(180deg);
     margin-left: 0.625rem;

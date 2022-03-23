@@ -51,7 +51,7 @@
   letter-spacing: -0.015em !important;
   color: #263238;
   border: none !important;
-  border-bottom: 1px solid #E1E1E1 !important;
+  border-bottom: 1px solid #e1e1e1 !important;
 }
 
 .product-filter-select__placeholder {
@@ -69,9 +69,34 @@
 }
 
 @media (min-width: 768px) {
+  .btn-product-filter-word {
+    display: none;
+  }
+
   .product-filter-container {
     margin-left: 1.25rem;
     flex: 1;
     margin-bottom: 0;
+    padding: 0.625rem 1rem;
+  }
+
+  .product-filter-form {
+    display: flex;
+  }
+
+  .product-filter-name-container {
+    flex: 1;
+    margin-right: 1.25rem;
+    margin-bottom: ;
+  }
+
+  .product-filter-bottom-container {
+    flex: 1;
+  }
+}
+
+@media (min-width: 992) {
+  .btn-product-filter-word {
+    display: unset;
   }
 }

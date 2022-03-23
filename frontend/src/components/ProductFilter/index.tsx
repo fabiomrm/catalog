@@ -1,3 +1,4 @@
+import { ReactComponent as SearchIcon} from 'assets/images/magnifying.svg';
 import './styles.css';
 
 export const ProductFilter = () => {
@@ -5,7 +6,8 @@ export const ProductFilter = () => {
     <div className="base-card product-filter-container">
       <form className="product-filter-form">
         <div className="product-filter-name-container">
-          <input type="text" className="form-control" />
+          <input type="text" className="form-control" placeholder="Nome do Produto" />
+          <SearchIcon />
         </div>
         <div className="product-filter-bottom-container">
           <div className="product-filter-category-container">

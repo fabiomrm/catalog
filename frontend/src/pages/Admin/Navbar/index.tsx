@@ -1,5 +1,3 @@
-import { AuthContext } from 'contexts/AuthContext';
-import { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import { hasAnyRoles } from 'utils/auth';
 import './styles.css';

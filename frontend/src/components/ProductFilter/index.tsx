@@ -6,15 +6,25 @@ import { Category } from 'types/Category';
 import { requestBackend } from 'utils/requests';
 import './styles.css';
 
-type ProductFilterData = {
+export type ProductFilterData = {
   name: string;
-  category: Category;
+  category: Category | null;
 };
 
-export const ProductFilter = () => {
+type Props = {
+  onSubmitFilter: (data: ProductFilterData) => void;
+};
+
+export const ProductFilter = ({ onSubmitFilter }: Props) => {
   const [selectCategories, setSelectCategories] = useState<Category[]>([]);
 
-  const { register, handleSubmit, control } = useForm<ProductFilterData>();
+  const { register, handleSubmit, control, setValue, getValues } =
+    useForm<ProductFilterData>();
+
+  const handleFormClear = () => {
+    setValue('name', '');
+    setValue('category', null);
+  };
 
   useEffect(() => {
     requestBackend({ url: '/categories' }).then((res) =>
@@ -22,8 +32,19 @@ export const ProductFilter = () => {
     );
   }, []);
 
+  const handleChangeCategory = (value: Category) => {
+    setValue('category', value);
+
+    const obj: ProductFilterData = {
+      name: getValues('name'),
+      category: getValues('category'),
+    };
+
+    onSubmitFilter(obj);
+  };
+
   const onSubmit = (formData: ProductFilterData) => {
-    console.log('ENVIOU', formData);
+    onSubmitFilter(formData)
   };
 
   return (
@@ -55,11 +76,15 @@ export const ProductFilter = () => {
                   classNamePrefix="product-filter-select"
                   getOptionLabel={(category: Category) => category.name}
                   getOptionValue={(category: Category) => String(category.id)}
+                  onChange={(value) => handleChangeCategory(value as Category)}
                 />
               )}
             />
           </div>
-          <button className="btn btn-outline-secondary btn-product-filter-clear">
+          <button
+            onClick={handleFormClear}
+            className="btn btn-outline-secondary btn-product-filter-clear"
+          >
             LIMPAR <span className="btn-product-filter-word">FILTRO</span>
           </button>
         </div>

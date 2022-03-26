@@ -15,7 +15,7 @@ export const saveAuthData = (obj: LoginResponse) => {
 
 export const getAuthData = (): LoginResponse => {
     const str = localStorage.getItem(TOKEN_KEY) ?? "{}";
-
+    
     return JSON.parse(str);
 }
 

@@ -4,8 +4,9 @@ import { Link, NavLink } from 'react-router-dom';
 import React, { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from 'contexts/AuthContext';
-import { getTokenData, isAuthenticated } from 'utils/auth';
+import { isAuthenticated } from 'utils/auth';
 import { removeAuthData } from 'utils/storage';
+import { getTokenData } from 'utils/token';
 
 export const Navbar = () => {
   const { authContextData, setAuthContextData } = useContext(AuthContext);

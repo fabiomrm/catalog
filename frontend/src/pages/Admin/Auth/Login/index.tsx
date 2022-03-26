@@ -7,13 +7,12 @@ import { requestBackendLogin } from 'utils/requests';
 import { useContext, useState } from 'react';
 import { AuthContext } from 'contexts/AuthContext';
 import { saveAuthData } from 'utils/storage';
-import { getTokenData } from 'utils/auth';
+import { getTokenData } from 'utils/token';
 
 type CredentialsDTO = {
   username: string;
   password: string;
 };
-
 
 export const Login = () => {
   const { authContextData, setAuthContextData } = useContext(AuthContext);
@@ -36,13 +35,12 @@ export const Login = () => {
       .then((res) => {
         saveAuthData(res.data);
         setHasError(false);
-
         setAuthContextData({
           authenticated: true,
           tokenData: getTokenData(),
           roles: getTokenData()?.authorities,
         });
-        console.log(from, 'FROM')
+
         navigate(from ? from : '/admin', { replace: true });
       })
       .catch((err) => {

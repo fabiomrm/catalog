@@ -1,7 +1,8 @@
 import { AuthContext } from 'contexts/AuthContext';
 import { useContext, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { hasAnyRoles, isAuthenticated, Role } from 'utils/auth';
+import { Role } from 'types/Role';
+import { hasAnyRoles, isAuthenticated,  } from 'utils/auth';
 
 
 type Props = {

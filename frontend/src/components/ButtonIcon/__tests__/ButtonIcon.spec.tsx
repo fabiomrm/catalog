@@ -11,4 +11,3 @@ describe('buttonIcon tests', () => {
   });
 });
 
-export {};

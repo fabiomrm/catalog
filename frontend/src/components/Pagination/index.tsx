@@ -25,12 +25,12 @@ export const Pagination = ({
       pageLinkClassName="pagination-item"
       breakClassName="pagination-item"
       previousLabel={
-        <div className="pagination-arrow-container">
+        <div className="pagination-arrow-container" data-testid="arrow-previous">
           <ArrowIcon />
         </div>
       }
       nextLabel={
-        <div>
+        <div data-testid="arrow-next">
           <ArrowIcon />
         </div>
       }

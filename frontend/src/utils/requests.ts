@@ -2,7 +2,7 @@ import axios, { AxiosRequestConfig } from 'axios';
 import qs from 'qs';
 import { getAuthData } from './storage';
 
-export const BASE_URL = process.env.REACT_APP_BASE_URL ?? 'https://fmrm-catalog.herokuapp.com';
+export const BASE_URL = process.env.REACT_APP_BACKEND_URL ?? 'https://fmrm-catalog.herokuapp.com';
 
 
 

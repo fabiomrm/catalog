@@ -93,12 +93,14 @@ export const Form = () => {
                     errors.name ? 'is-invalid' : ''
                   }`}
                   placeholder="Nome do produto"
+                  data-testid="name"
                 />
                 <div className="invalid-feedback d-block">
                   {errors.name?.message}
                 </div>
               </div>
               <div className="product-crud-input margin-bottom-30">
+              <label htmlFor="categories" className="d-none">categorias</label>
                 <Controller
                   name="categories"
                   rules={{ required: true }}
@@ -113,6 +115,7 @@ export const Form = () => {
                       getOptionValue={(category: Category) =>
                         String(category.id)
                       }
+                      inputId="categories"
                     />
                   )}
                 />
@@ -123,6 +126,7 @@ export const Form = () => {
                 )}
               </div>
               <div className="product-crud-input margin-bottom-30">
+                
                 <Controller
                   name="price"
                   rules={{
@@ -139,6 +143,7 @@ export const Form = () => {
                       value={field.value}
                       onValueChange={field.onChange}
                       decimalsLimit={2}
+                      data-testid="price"
                     />
                   )}
                 />
@@ -159,6 +164,7 @@ export const Form = () => {
                     errors.name ? 'is-invalid' : ''
                   }`}
                   placeholder="Url da imagem do produto"
+                  data-testid="imgUrl"
                 />
                 <div className="invalid-feedback d-block">
                   {errors.name?.message}
@@ -175,6 +181,7 @@ export const Form = () => {
                   errors.price ? 'is-invalid' : ''
                 }`}
                 placeholder="Descrição"
+                data-testid="description"
               />
               <div className="invalid-feedback d-block">
                 {errors.description?.message}

@@ -65,8 +65,44 @@ describe('Product Form create tests', () => {
 
     await waitFor(() => {
       const messages = screen.getAllByText('Campo obrigatório');
-        
+
       expect(messages).toHaveLength(5);
     });
+  });
+  it('should clear validation messages when filling out the form', async () => {
+    render(
+      <BrowserRouter>
+        <Form />
+      </BrowserRouter>
+    );
+
+    const submitButton = screen.getByRole('button', { name: /salvar/i });
+
+    userEvent.click(submitButton);
+
+    await waitFor(() => {
+      const messages = screen.getAllByText('Campo obrigatório');
+
+      expect(messages).toHaveLength(5);
+    });
+
+    const nameInput = screen.getByTestId('name');
+    const price = screen.getByTestId('price');
+    const imgUrl = screen.getByTestId('imgUrl');
+    const description = screen.getByTestId('description');
+    const categoriesInput = screen.getByLabelText('categorias');
+
+    await selectEvent.select(categoriesInput, ['Eletrônicos', 'Computadores']);
+    userEvent.type(nameInput, 'Computador');
+    userEvent.type(price, '5000.12');
+    userEvent.type(imgUrl, 'image.jpg');
+    userEvent.type(description, 'Computador muito bom!');
+
+    await waitFor(() => {
+        const messages = screen.queryAllByText('Campo obrigatório');
+  
+        expect(messages).toHaveLength(0);
+      });
+
   });
 });

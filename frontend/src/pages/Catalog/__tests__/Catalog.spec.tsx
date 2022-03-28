@@ -1,7 +1,11 @@
 import { render, screen, waitFor } from '@testing-library/react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { Catalog } from '..';
+import { server } from './fixtures';
 
+beforeAll(() => server.listen());
+afterEach(() => server.resetHandlers());
+afterAll(() => server.close());
 describe('Catalog tests', () => {
   it('should render Catalog with products', async () => {
     render(

@@ -16,16 +16,25 @@
 
 ### Home
 
-![Alt Text](home.gif)
+![home](home.gif)
 \
 \
 \
 \
 \
 
-# Catálogo
+### Catálogo
 
-![Alt Text](catalog.gif)
+![catálogo](catalog.gif)
+\
+\
+\
+\
+\
+
+### Admin
+
+![admin](admin.png)
 
 # Tecnologias utilizadas
 
@@ -51,15 +60,9 @@
 - Front end web: Netlify
 - Banco de dados: Postgresql
 
-## Sobre o proj
-
-## Back end
-
-## Front end web
-
-### Autor
-
 ---
+
+## Autor
 
 Feito por Fábio Monteiro 👋🏽 Entre em contato!
 

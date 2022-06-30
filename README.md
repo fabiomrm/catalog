@@ -15,6 +15,7 @@
 ## Telas
 
 ![Alt Text](home.gif)
+![Alt Text](catalog.gif)
 
 # Tecnologias utilizadas
 

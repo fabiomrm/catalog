@@ -1,4 +1,4 @@
-# FMRM | Catálogo de Produtos
+<h1 align="center">FMRM | Catálogo de Produtos</h1>
 
 [![NPM](https://img.shields.io/npm/l/react)](https://github.com/devsuperior/sds1-wmazoni/blob/master/LICENSE)
 
@@ -26,6 +26,10 @@
 - HTML / CSS / JS / TypeScript
 - ReactJS
 
+## Banco de dados
+
+- PostgreSQL
+
 ## Implantação em produção
 
 - Back end: Heroku
@@ -38,8 +42,10 @@
 
 ## Front end web
 
-# Autor
+### Autor
 
-Fábio Monteiro
+---
 
-https://www.linkedin.com/in/fabiomrm
+Feito por Fábio Monteiro 👋🏽 Entre em contato!
+
+[![Linkedin Badge](https://img.shields.io/badge/-fabiomrm-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/fabiomrm/)](https://www.linkedin.com/in/fabiomrm/)

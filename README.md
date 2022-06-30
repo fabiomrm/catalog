@@ -26,17 +26,12 @@
 ### Catálogo
 
 ![catálogo](catalog.gif)
-\
-\
-\
-\
-\
 
 ### Admin
 
 ![admin](admin.png)
 
-# Tecnologias utilizadas
+# 🛠 Tecnologias utilizadas
 
 ## Back end
 

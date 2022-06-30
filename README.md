@@ -14,7 +14,17 @@
 
 ## Telas
 
+### Home
+
 ![Alt Text](home.gif)
+\
+\
+\
+\
+\
+
+# Catálogo
+
 ![Alt Text](catalog.gif)
 
 # Tecnologias utilizadas

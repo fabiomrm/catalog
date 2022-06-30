@@ -3,7 +3,7 @@
 [![NPM](https://img.shields.io/npm/l/react)](https://github.com/devsuperior/sds1-wmazoni/blob/master/LICENSE)
 
 <p align="center">
-	Catalog é uma aplicação full stack web que consiste em um catálogo de produtos que são armazenados em um banco de dados e exibidos no site web.
+	Catalog é uma aplicação full stack web que consiste em um catálogo de produtos que são armazenados em um banco de dados e exibidos no site web. Qualquer pessoa pode visualizar os produtos, mas apenas administradores podem realizar operações no banco de dados da aplicação.
 </p>
 
 # Sobre o projeto
@@ -11,6 +11,10 @@
 ## Modelo conceitual
 
 ![Modelo Conceitual](uml-catalog.png)
+
+## Telas
+
+![Alt Text](home.gif)
 
 # Tecnologias utilizadas
 
@@ -36,7 +40,7 @@
 - Front end web: Netlify
 - Banco de dados: Postgresql
 
-# Como executar o projeto
+## Sobre o proj
 
 ## Back end
 
